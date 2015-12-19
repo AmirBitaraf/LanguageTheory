@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="Add">Add-icon.png</file>
+        <file alias="Delete">Actions-window-close-icon.png</file>
+        <file alias="Icon">9rules.png</file>
+    </qresource>
+</RCC>

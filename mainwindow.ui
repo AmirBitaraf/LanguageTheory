@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>708</width>
+    <height>330</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>708</width>
+    <height>330</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>708</width>
+    <height>330</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Language Theory</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Resource.qrc">
+    <normaloff>:/images/Icon</normaloff>:/images/Icon</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>5</y>
+      <width>306</width>
+      <height>280</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Rules</string>
+    </property>
+    <widget class="QPushButton" name="btnRemoveRule">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>57</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="Resource.qrc">
+       <normaloff>:/images/Delete</normaloff>:/images/Delete</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>250</width>
+       <height>255</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnAddRule">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>20</y>
+       <width>32</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="Resource.qrc">
+       <normaloff>:/images/Add</normaloff>:/images/Add</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>5</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>String</string>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>22</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>String to Evaluate:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtString">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>261</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>60</y>
+      <width>381</width>
+      <height>224</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Action</string>
+    </property>
+    <widget class="QPushButton" name="btnProcess">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>361</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Process</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnGNF">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>361</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Convert to Greibach Normal Form</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnCNF">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>361</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Convert to Chomsky Normal Form</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnESP">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>361</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Evaluate Using Exhaustive Search</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnCYK">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>361</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Evaluate Using CYK</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>708</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionImport_Rules"/>
+    <addaction name="actionExport_Tree"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionImport_Rules">
+   <property name="text">
+    <string>Import Rules...</string>
+   </property>
+  </action>
+  <action name="actionExport_Tree">
+   <property name="text">
+    <string>Export Tree...</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
