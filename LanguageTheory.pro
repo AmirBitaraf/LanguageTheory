@@ -11,9 +11,18 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    ESP.cpp \
+    rule.cpp \
+    language.cpp \
+    ruleexception.cpp
 
 HEADERS  += mainwindow.h \
+    ESP.h \
+    rule.h \
+    language.h \
+    Bridge.h \
+    ruleexception.h \
     Constants.h
 
 FORMS    += mainwindow.ui

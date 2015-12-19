@@ -24,6 +24,8 @@ private slots:
     void on_actionImport_Rules_triggered();
     void on_rules_changes();
 
+    void on_listWidget_currentRowChanged(int currentRow);
+
 private:
     Ui::MainWindow *ui;
     QLabel * statusLabel;

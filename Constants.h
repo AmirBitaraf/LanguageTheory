@@ -1,9 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include <QString>
-
-const QString subscript = "";
-
+const QString LAMBDA = "\u03BB";
 
 #endif // CONSTANTS_H
