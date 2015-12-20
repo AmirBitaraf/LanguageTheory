@@ -8,6 +8,7 @@ Language::Language()
 
 void Language::addRule(Rule rule)
 {
+    qDebug() << rule.lhs.c_str() << rule.getRightText().c_str();
     for(int i = 0;i < rules.size();i++)
         if(rule == rules[i])
             return;
@@ -359,6 +360,71 @@ void Language::performCYK(string s)
             }
         }
     }
-    qDebug() << P[n][1][I["S"]];
 }
+
+void Language::performESP(string s, QStandardItemModel *model)
+{
+    QStandardItem * item = new QStandardItem(QString("S"));
+    model->setItem(0,0,item);
+    S.clear();
+    flag = false;
+    String = s;
+    vector<string> R;
+    R.push_back("S");
+    this->backtrack(R,item);
+
+}
+
+bool isEqual(vector<string> & String,string s)
+{
+    if(String.size()!=s.size()) return false;
+    for(int i = 0;i < String.size();i++)
+    {
+        if(String[i][0] != s[i]) return false;
+    }
+    return true;
+}
+
+
+int Language::backtrack(vector<string> & str,QStandardItem * item)
+{
+    if(flag) return false;
+    if(str.size()>String.size()) return false;//because we don't have lambda!
+    if(isEqual(str,String))
+    {
+        item->setBackground(Qt::green);
+        flag=true;
+        return true;
+    }
+    for(int i = 0;i<str.size();i++)
+    {
+        if(isupper(str[i][0]))
+        {
+            int j,k;
+            for(j = 0;j < rules.size();j++)
+            {
+                if(rules[j].lhs == str[i])
+                {
+                    vector<string> newString;
+                    string newStr = "";
+                    for(k = 0;k < i;k++) newString.push_back(str[k]);
+                    for(k = 0;k < rules[j].rhs.size();k++) newString.push_back(rules[j].rhs[k]);
+                    for(k = i+1;k < str.size();k++) newString.push_back(str[k]);
+                    for(int u = 0;u < newString.size();u++) newStr += newString[u];
+
+                    QStandardItem * child = new QStandardItem(QString(newStr.c_str()));
+                    item->appendRow(child);
+
+                    if(!flag) S.push_back(newStr);
+                    backtrack(newString,child);
+                    if(flag){
+                        item->setBackground(Qt::green);
+                    }
+                    if(!flag) S.pop_back();
+                }
+            }
+        }
+    }
+}
+
 

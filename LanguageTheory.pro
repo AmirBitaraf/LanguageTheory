@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     language.cpp \
     ruleexception.cpp \
     addrule.cpp \
-    cyk.cpp
+    cyk.cpp \
+    est.cpp
 
 HEADERS  += mainwindow.h \
     ESP.h \
@@ -27,11 +28,13 @@ HEADERS  += mainwindow.h \
     ruleexception.h \
     Constants.h \
     addrule.h \
-    cyk.h
+    cyk.h \
+    est.h
 
 FORMS    += mainwindow.ui \
     addrule.ui \
-    cyk.ui
+    cyk.ui \
+    est.ui
 
 RESOURCES += \
     Resource.qrc

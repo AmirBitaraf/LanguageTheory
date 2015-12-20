@@ -3,5 +3,6 @@
         <file alias="Add">Add-icon.png</file>
         <file alias="Delete">Actions-window-close-icon.png</file>
         <file alias="Icon">9rules.png</file>
+        <file>C:/Users/Amir/Desktop/qtreeviewer-3.5-src/img/nodeglow.png</file>
     </qresource>
 </RCC>

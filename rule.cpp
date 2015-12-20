@@ -92,7 +92,7 @@ QString Rule::getFormatted()
     {
         ret += subs(this->rhs[i]);
     }
-    return ret.replace('~',"&lambda;");
+    return ret;//.replace('~',"&lambda;");
 }
 
 bool Rule::isLambdaProduction()

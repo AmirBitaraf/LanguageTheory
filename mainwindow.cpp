@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     emit RulesChanged();
     this->ui->btnRemoveRule->setEnabled(false);
     this->cyk = new CYK();
+    this->est = new EST();
     QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+I"), this);
     QObject::connect(shortcut, SIGNAL(activated()), this->ui->btnAddRule, SLOT(click()));
 
@@ -31,6 +32,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_rules_changes()
 {
+    this->ui->listWidget->clear();
     ui->btnProcess->setEnabled(false);
     ui->btnCYK->setEnabled(false);
     ui->btnCNF->setEnabled(false);
@@ -39,7 +41,6 @@ void MainWindow::on_rules_changes()
     if(this->language->rules.size())
     {
         ui->btnProcess->setEnabled(true);
-        this->ui->listWidget->clear();
         for(int i = 0;i < language->rules.size();i++)
         {
             QLabel * label = new QLabel(language->rules[i].getFormatted());
@@ -143,6 +144,12 @@ void MainWindow::on_btnCYK_clicked()
     this->cyk->setWindowFlags(Qt::WindowCloseButtonHint);
     QString eval = this->ui->txtString->text();
 
+    if(eval.size()==0)
+    {
+        QMessageBox::warning(this,"String","Please Enter String to Evaluate");
+        return;
+    }
+
     this->language->performCYK(eval.toStdString());
 
     QStringList labels;
@@ -190,7 +197,7 @@ void MainWindow::on_btnCYK_clicked()
             }
             lbl += "}";
             lbl += "</div>";
-            QLabel * label = new QLabel(lbl);
+            QLabel * label = new QLabel(beautify(lbl));
             QTableWidgetItem * item = new QTableWidgetItem();
             cyk->table->setItem(i-1,j-1,item);
             cyk->table->setCellWidget(i-1,j-1,label);
@@ -200,4 +207,30 @@ void MainWindow::on_btnCYK_clicked()
 
 
     this->cyk->showNormal();
+}
+
+void MainWindow::on_btnESP_clicked()
+{
+    this->est->setWindowFlags(Qt::WindowCloseButtonHint);
+    QString eval = this->ui->txtString->text();
+    QStandardItemModel * model = new QStandardItemModel(1,1);
+
+    if(eval.size()==0)
+    {
+        QMessageBox::warning(this,"String","Please Enter String to Evaluate");
+        return;
+    }
+    this->language->tree = this->est->tree;
+    this->language->performESP(eval.toStdString(),model);
+
+    if(language->flag)
+    {
+        QMessageBox::information(this,"Found","String Parsed in Language!");
+    }
+
+    this->est->tree->header()->hide();
+
+    this->est->tree->setModel(model);
+
+    this->est->show();
 }

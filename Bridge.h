@@ -11,6 +11,7 @@
 #include <fstream>
 #include <QTextCodec>
 #include <QShortcut>
+#include <QStandardItemModel>
 
 
 

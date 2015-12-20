@@ -4,6 +4,7 @@
 #include "Bridge.h"
 #include "addrule.h"
 #include "cyk.h"
+#include "est.h"
 
 
 class QLabel;
@@ -18,7 +19,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    QString beautify(QString rule)
+    {
+        QString ret = "";
+        for(int i = 0;i < rule.size();i++)
+        {
+            if(rule[i].isDigit()) ret += "<sub>"+rule[i]+"</sub>";
+            else ret += QString(rule[i]);
+        }
+        return ret;
+    }
 signals:
     void RulesChanged();
     
@@ -38,12 +48,17 @@ private slots:
 
     void on_btnCYK_clicked();
 
+    void on_btnESP_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel * statusLabel;
     Language * language;
     AddRule * addRuleForm;
     CYK * cyk;
+    EST * est;
+
 };
+
 
 #endif // MAINWINDOW_H
