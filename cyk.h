@@ -15,10 +15,10 @@ class CYK : public QDialog
 public:
     explicit CYK(QWidget *parent = 0);
     ~CYK();
+    QTableWidget * table;
     
 private:
     Ui::CYK *ui;
-    QTableWidget * table;
 };
 
 #endif // CYK_H

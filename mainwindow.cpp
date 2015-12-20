@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->language = new Language();
     emit RulesChanged();
     this->ui->btnRemoveRule->setEnabled(false);
-
+    this->cyk = new CYK();
     QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+I"), this);
     QObject::connect(shortcut, SIGNAL(activated()), this->ui->btnAddRule, SLOT(click()));
 
@@ -135,4 +135,69 @@ void MainWindow::on_btnCNF_clicked()
     this->ui->btnESP->setEnabled(true);
     this->ui->btnGNF->setEnabled(true);
     this->ui->btnCYK->setEnabled(true);
+}
+
+void MainWindow::on_btnCYK_clicked()
+{
+    cyk->table->clear();
+    this->cyk->setWindowFlags(Qt::WindowCloseButtonHint);
+    QString eval = this->ui->txtString->text();
+
+    this->language->performCYK(eval.toStdString());
+
+    QStringList labels;
+    cyk->table->setRowCount(eval.size());
+    for(int i = 0;i < eval.size();i++){
+        cyk->table->insertColumn(i);
+        labels << QString::number(i);
+    }
+    cyk->table->setHorizontalHeaderLabels(labels);
+    cyk->table->setVerticalHeaderLabels(labels);
+    cyk->table->verticalHeader()->setVisible(false);
+    cyk->table->horizontalHeader()->setVisible(false);
+
+    for(int i = 0;i < eval.size();i++)
+    {
+        for(int j = 0; j < eval.size();j++)
+        {
+            QLabel * label = new QLabel("");
+            QTableWidgetItem * item = new QTableWidgetItem();
+            label->setStyleSheet("QLabel {background-color: #AAA;};");
+            cyk->table->setItem(i,j,item);
+            cyk->table->setCellWidget(i,j,label);
+
+        }
+    }
+
+    for(int i = 1;i <= eval.size();i++)
+    {
+        for(int j = 1; i+j <= eval.size()+1;j++)
+        {
+            QString lbl = "<div style='float:left'><sup>";
+            lbl += QString::number(j)+QString::number(i+j-1);
+            lbl += "</sup></div><div align='center'>";
+
+            lbl += "{";
+            bool flag = false;
+            for(int k = 0;k < this->language->IND.size();k++)
+            {
+                if(this->language->P[i][j][k])
+                {
+                    if(flag) lbl += ", ";
+                    flag = true;
+                    lbl += QString(this->language->IND[k].c_str());
+                }
+            }
+            lbl += "}";
+            lbl += "</div>";
+            QLabel * label = new QLabel(lbl);
+            QTableWidgetItem * item = new QTableWidgetItem();
+            cyk->table->setItem(i-1,j-1,item);
+            cyk->table->setCellWidget(i-1,j-1,label);
+        }
+    }
+
+
+
+    this->cyk->showNormal();
 }

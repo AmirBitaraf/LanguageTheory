@@ -3,6 +3,7 @@
 
 #include "Bridge.h"
 #include "addrule.h"
+#include "cyk.h"
 
 
 class QLabel;
@@ -35,11 +36,14 @@ private slots:
 
     void on_btnCNF_clicked();
 
+    void on_btnCYK_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel * statusLabel;
     Language * language;
     AddRule * addRuleForm;
+    CYK * cyk;
 };
 
 #endif // MAINWINDOW_H

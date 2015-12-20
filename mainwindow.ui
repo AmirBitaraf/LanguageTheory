@@ -151,10 +151,15 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>20</y>
+       <y>15</y>
        <width>261</width>
-       <height>20</height>
+       <height>30</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

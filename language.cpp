@@ -1,4 +1,5 @@
 #include "language.h"
+#include <QDebug>
 
 Language::Language()
 {
@@ -197,7 +198,7 @@ bool Language::f(string var)
 
             bool isOnlyTerminal = true;
             for(int j = 0;j < rules[i].rhs.size();j++){
-                if(rules[i].rhs[j].size()==1 && isupper(rules[i].rhs[j][0])){
+                if(isupper(rules[i].rhs[j][0])){
                     isOnlyTerminal = false;
                     vars.push_back(rules[i].rhs[j]);
                 }
@@ -226,6 +227,7 @@ void Language::removeUselessVariables()
     {
         if(!isOK[rules[i].lhs])
         {
+            qDebug() << rules[i].lhs.c_str();
             rules.erase(rules.begin()+i);
             i--;
         }
@@ -254,7 +256,7 @@ void Language::convertCNF()
             }
         }
     }
-    for(int i = 0;i < rules.size();i++)
+    for(int i = 0,rind = 0;i < rules.size();i++,rind++)
     {
         if(rules[i].rhs.size()>2)
         {
@@ -262,7 +264,7 @@ void Language::convertCNF()
             for(int j = 0;j < sz-2;j++)
             {
                 vector<string> rh;
-                string vname = ("V"+QString::number(i)+QString::number(j)).toStdString();
+                string vname = ("V"+QString::number(rind)+QString::number(j)).toStdString();
                 rh.push_back(rules[i].rhs[j]);
                 rh.push_back(vname);
                 if(j==0){
@@ -270,14 +272,14 @@ void Language::convertCNF()
                 }
                 else
                 {
-                    string cname = ("V"+QString::number(i)+QString::number(j-1)).toStdString();
+                    string cname = ("V"+QString::number(rind)+QString::number(j-1)).toStdString();
                     newRules.push_back(Rule(cname,rh));
                 }
             }
             vector<string> rh;
-            rh.push_back(rules[i].rhs[sz-1]);
             rh.push_back(rules[i].rhs[sz-2]);
-            string cname = ("V"+QString::number(i)+QString::number(sz-3)).toStdString();
+            rh.push_back(rules[i].rhs[sz-1]);
+            string cname = ("V"+QString::number(rind)+QString::number(sz-3)).toStdString();
             newRules.push_back(Rule(cname,rh));
             rules.erase(rules.begin()+i);
             i--;
@@ -287,5 +289,76 @@ void Language::convertCNF()
         this->addRule(newRules[i]);
     this->removeUnitProduction();
     this->removeUselessVariables();
+}
+
+
+bool *** alloc3d(int x,int y,int z)
+{
+    x+=10;
+    y+=10;
+    z+=10;
+    bool *** arr;
+    arr = new bool**[x];
+    for(int i = 0; i < x; i++)
+    {
+    arr[i] = new bool*[y];
+        for(int j = 0; j < y; j++)
+        {
+            arr[i][j] = new bool[z];
+            for(int k = 0;k < z;k++) arr[i][j][k]=false;
+        }
+    }
+    return arr;
+}
+
+
+
+void Language::performCYK(string s)
+{
+    int ind = 0;
+    map<string,int> I;
+    IND.clear();
+    for(int i = 0;i < rules.size();i++)
+    {
+        if(I.find(rules[i].lhs)==I.end()){
+            I[rules[i].lhs] = ind;
+            IND[ind] = rules[i].lhs;
+            ind++;
+        }
+    }
+    int n = s.size();
+    s = " "+s;
+    P = alloc3d(s.size(),s.size(),ind);
+    for(int k = 1;k < s.size();k++)
+    {
+        for(int i = 0;i < rules.size();i++)
+        {
+            if(rules[i].rhs.size()==1 && islower(rules[i].rhs[0][0]) && s[k]==rules[i].rhs[0][0])
+            {
+                P[1][k][I[rules[i].lhs]] = true;
+            }
+        }
+    }
+    for(int i = 2;i <= n;i++)
+    {
+        for(int j = 1;j <= n-i+1;j++)
+        {
+            for(int k = 1;k < i;k++)
+            {
+                for(int r = 0;r < rules.size();r++)
+                {
+                    string A = rules[r].lhs;
+                    if(!(rules[r].rhs.size()==1 && islower(rules[r].rhs[0][0])))
+                    {
+                        string B = rules[r].rhs[0];
+                        string C = rules[r].rhs[1];
+                        if(P[k][j][I[B]] && P[i-k][j+k][I[C]])
+                            P[i][j][I[A]]=true;
+                    }
+                }
+            }
+        }
+    }
+    qDebug() << P[n][1][I["S"]];
 }
 

@@ -13,6 +13,8 @@ class Language
 public:
     Language();
     vector<Rule> rules;
+    bool *** P;
+    map<int,string> IND;
     void addRule(Rule rule);
     void loadRules(istream & ss);
     void clearRules();
@@ -23,6 +25,8 @@ public:
     void processLanguage();
     vector<Rule> setOfRules(string s);
     void convertCNF();
+    void performCYK(string s);
+
 private:
     bool f(string var);
     map<string,bool> isOK;
