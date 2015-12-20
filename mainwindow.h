@@ -31,6 +31,10 @@ private slots:
 
     void on_btnRemoveRule_clicked();
 
+    void on_btnProcess_clicked();
+
+    void on_btnCNF_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel * statusLabel;

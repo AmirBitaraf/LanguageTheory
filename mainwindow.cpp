@@ -87,13 +87,12 @@ void MainWindow::on_add_rule(QString lhs, QString rhs)
     try
     {
         this->language->addRule(Rule(lhs.toStdString(),rhs.toStdString()));
+        emit RulesChanged();
     }
     catch(RuleException & e)
     {
-        language->clearRules();
         QMessageBox::critical(this,"Error",e.what());
     }
-    emit RulesChanged();
 }
 
 void MainWindow::on_btnAddRule_clicked()
@@ -117,4 +116,23 @@ void MainWindow::on_btnRemoveRule_clicked()
     int select = this->ui->listWidget->row(this->ui->listWidget->selectedItems()[0]);
     this->language->removeRule(select);
     emit RulesChanged();
+}
+
+void MainWindow::on_btnProcess_clicked()
+{
+    this->language->processLanguage();
+    emit RulesChanged();
+    this->ui->btnCNF->setEnabled(true);
+    this->ui->btnESP->setEnabled(true);
+    this->ui->btnGNF->setEnabled(true);
+}
+
+void MainWindow::on_btnCNF_clicked()
+{
+    this->language->convertCNF();
+    emit RulesChanged();
+    this->ui->btnCNF->setEnabled(true);
+    this->ui->btnESP->setEnabled(true);
+    this->ui->btnGNF->setEnabled(true);
+    this->ui->btnCYK->setEnabled(true);
 }

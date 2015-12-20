@@ -23,8 +23,18 @@ void Rule::init(string lhs, string rhs)
         string s = "";
         s += rhs[j++];
         while(j < rhs.size() && !isalpha(rhs[j]) && rhs[j] != '~') s += rhs[j++];
+        if(!isalpha(s[0]) && s[0]!='~') throw RuleException("Invalid Rule: Syntax Error");
         this->rhs.push_back(s);
         i=j-1;
+    }
+    bool haveLambda = false;
+    for(int i  = 0;i < this->rhs.size();i++)
+    {
+        if(this->rhs[i][0]=='~') haveLambda = true;
+    }
+    if(haveLambda && this->rhs.size()>1)
+    {
+        throw RuleException("Invalid Rule: Syntax Error! Lambda and Other Variables and terminals found!");
     }
 }
 
@@ -40,6 +50,12 @@ Rule::Rule(string rule)
         else k+= rule[j];
     }
     this->init(k,v);
+}
+
+Rule::Rule(string lhs,vector<string> rhs)
+{
+    this->lhs = lhs;
+    this->rhs = rhs;
 }
 
 Rule::Rule(string k,string v)
@@ -79,4 +95,25 @@ QString Rule::getFormatted()
     return ret.replace('~',"&lambda;");
 }
 
+bool Rule::isLambdaProduction()
+{
+    return rhs.size()==1 && rhs[0][0]=='~';
+}
 
+bool Rule::operator ==(Rule r)
+{
+    if(this->rhs.size()!=r.rhs.size() || this->lhs!=r.lhs) return false;
+    for(int i = 0;i < r.rhs.size();i++)
+    {
+        if(r.rhs[i] != this->rhs[i]) return false;
+    }
+    return true;
+}
+
+string Rule::getRightText()
+{
+    string ret = "";
+    for(int i = 0;i < rhs.size();i++)
+        ret += rhs[i];
+    return ret;
+}

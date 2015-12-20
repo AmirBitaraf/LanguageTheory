@@ -10,15 +10,19 @@ using namespace std;
 class Rule
 {
 private:
-    string lhs;
-    vector<string> rhs;
     void init(string lhs,string rhs);
 public:
+    string lhs;
+    vector<string> rhs;
     Rule(string rule);
     Rule(string lhs,string rhs);
+    Rule(string lhs,vector<string> rhs);
     string getLeft();
     vector<string> getRight();
+    string getRightText();
     QString getFormatted();
+    bool isLambdaProduction();
+    bool operator ==(Rule r);
 };
 
 #endif // RULE_H
