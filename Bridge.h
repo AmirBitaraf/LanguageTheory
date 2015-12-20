@@ -10,6 +10,8 @@
 #include <iostream>
 #include <fstream>
 #include <QTextCodec>
+#include <QShortcut>
+
 
 
 #endif

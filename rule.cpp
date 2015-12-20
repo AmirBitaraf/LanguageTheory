@@ -1,7 +1,7 @@
 #include "rule.h"
 #include <QTextCodec>
 
-void Rule::init(string &lhs, string &rhs)
+void Rule::init(string lhs, string rhs)
 {
     if(rhs.empty())
     {
@@ -10,7 +10,7 @@ void Rule::init(string &lhs, string &rhs)
     int cnt = 0;
     for(int i = 0;i < lhs.size();i++)
     {
-        if(islower(lhs[i])) throw RuleException("Invalid Rule: Terminal at Left-Side!");
+        if(!isupper(lhs[i]) && !isdigit(lhs[i])) throw RuleException("Invalid Rule: Terminal at Left-Side!");
         cnt += isupper(lhs[i]);
     }
     if(cnt != 1){
@@ -29,7 +29,7 @@ void Rule::init(string &lhs, string &rhs)
 }
 
 
-Rule::Rule(string & rule)
+Rule::Rule(string rule)
 {
     string k="",v="";
     int flag = false;
@@ -42,7 +42,7 @@ Rule::Rule(string & rule)
     this->init(k,v);
 }
 
-Rule::Rule(string & k,string & v)
+Rule::Rule(string k,string v)
 {
     this->init(k,v);
 }

@@ -15,7 +15,8 @@ SOURCES += main.cpp\
     ESP.cpp \
     rule.cpp \
     language.cpp \
-    ruleexception.cpp
+    ruleexception.cpp \
+    addrule.cpp
 
 HEADERS  += mainwindow.h \
     ESP.h \
@@ -23,9 +24,11 @@ HEADERS  += mainwindow.h \
     language.h \
     Bridge.h \
     ruleexception.h \
-    Constants.h
+    Constants.h \
+    addrule.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addrule.ui
 
 RESOURCES += \
     Resource.qrc

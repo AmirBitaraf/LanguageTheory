@@ -12,10 +12,10 @@ class Rule
 private:
     string lhs;
     vector<string> rhs;
-    void init(string & lhs,string & rhs);
+    void init(string lhs,string rhs);
 public:
-    Rule(string & rule);
-    Rule(string & lhs,string & rhs);
+    Rule(string rule);
+    Rule(string lhs,string rhs);
     string getLeft();
     vector<string> getRight();
     QString getFormatted();

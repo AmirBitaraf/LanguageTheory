@@ -21,3 +21,8 @@ void Language::clearRules()
 {
     this->rules.clear();
 }
+
+void Language::removeRule(int index)
+{
+    this->rules.erase(rules.begin()+index);
+}

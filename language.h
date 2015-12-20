@@ -14,6 +14,7 @@ public:
     void addRule(Rule rule);
     void loadRules(istream & ss);
     void clearRules();
+    void removeRule(int index);
 };
 
 #endif // LANGUAGE_H
